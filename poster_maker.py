@@ -1,7 +1,7 @@
 import configparser
 import pathlib
 import sys
-from typing import List
+from typing import List, Tuple
 
 from PIL import Image
 
@@ -43,7 +43,7 @@ class ImageCombiner:
                 print(f"Warning: Image folder '{folder_path}' not found.")
         return None
 
-    def _get_image_paths(self):
+    def _get_image_paths(self) -> List[List[pathlib.Path]]:
         """
         Parses the configuration file and returns a 2D list of image paths
         within the specified single image folder.
@@ -69,7 +69,7 @@ class ImageCombiner:
                     print(f"Warning: Row '{row_key}' not found in the configuration file.")
         return image_paths
 
-    def _get_background_color(self):
+    def _get_background_color(self) -> Tuple[int, int, int]:
         """
         Retrieves the background color from the configuration file.
 
