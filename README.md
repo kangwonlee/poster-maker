@@ -1,3 +1,4 @@
+[![Poster Maker CI/CD](https://github.com/kangwonlee/poster-maker/actions/workflows/poster-maker.yaml/badge.svg)](https://github.com/kangwonlee/poster-maker/actions/workflows/poster-maker.yaml)
 # Poster Maker
 
 This Python script helps you create a single, well-structured image file for your poster presentations by combining multiple PNG images based on a simple configuration file. It's designed to assist researchers, academics, and students in preparing their posters for conferences, symposia, or any event where visual presentation of data is required.

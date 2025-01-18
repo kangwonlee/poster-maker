@@ -52,7 +52,7 @@ def test_invalid_config_missing_rows(invalid_config_missing_rows, temp_test_dir,
     combiner = ImageCombiner(pathlib.Path(invalid_config_missing_rows))
     combiner.combine_images()
     captured = capsys.readouterr()  # Capture stdout/stderr
-    assert "Error: No image paths found in the configuration file." in captured.err
+    assert "Error: No image paths found in the configuration file." in captured.out
 
 
 def test_invalid_config_missing_image_folder(invalid_config_missing_image_folder, temp_test_dir, capsys):
@@ -62,7 +62,7 @@ def test_invalid_config_missing_image_folder(invalid_config_missing_image_folder
     combiner = ImageCombiner(pathlib.Path(invalid_config_missing_image_folder))
     combiner.combine_images()
     captured = capsys.readouterr()
-    assert "Error: No image paths found in the configuration file." in captured.err
+    assert "Error: No image paths found in the configuration file." in captured.out
 
 
 if "__main__" == __name__:

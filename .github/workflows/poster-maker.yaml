@@ -1,0 +1,50 @@
+name: Poster Maker CI/CD
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: ["3.11", "3.12"]
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Install uv
+      uses: astral-sh/setup-uv@v3
+      with:
+        version: "latest"
+        enable-cache: true
+        cache-suffix: "uv"
+        cache-dependency-glob: "./requirements.txt"
+
+    - name: Create venv
+      run: uv venv my_env
+
+    - name: setup environment
+      id: setup
+      run: |
+        . my_env/bin/activate
+        uv pip install -r ./requirements.txt
+
+    - name: list packages
+      id: list_packages
+      run: |
+        . my_env/bin/activate
+        uv pip list
+
+    - name: Lint with ruff
+      uses: astral-sh/ruff-action@v3
+      with:
+        version: "latest"
+        src: "./"
+
+    - name: Test with pytest
+      run: |
+        . my_env/bin/activate
+        python -m pytest tests/
