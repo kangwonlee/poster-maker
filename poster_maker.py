@@ -152,6 +152,13 @@ def write_default_cfg_file(config_file:pathlib.Path) -> int:
     )
 
 
+def write_default_img_files(default_folder:pathlib.Path):
+    default_folder.mkdir(parents=True, exist_ok=True)
+    for i in range(1, 5):  # Create 4 images
+        img = Image.new('RGB', (100, 100), color=(i * 25, i * 10, i * 5))
+        img.save(default_folder / f'image{i}.png')
+
+
 def main(argv:List[str]):
     if len(argv) > 1:
         config_fname = argv[1]
@@ -162,14 +169,12 @@ def main(argv:List[str]):
 
     if not config_file.exists():
         # Create a dummy config file and images in the specified folder
-        write_default_cfg_file(config_file)
+        default_folder = pathlib.Path('./images').resolve()
+
+        write_default_cfg_file(config_file, default_folder)
 
         # Create a dummy image folder and files
-        folder = pathlib.Path('./images').expanduser()  # Use a single folder
-        folder.mkdir(parents=True, exist_ok=True)
-        for i in range(1, 5):  # Create 4 images
-            img = Image.new('RGB', (100, 100), color=(i * 25, i * 10, i * 5))
-            img.save(folder / f'image{i}.png')
+        write_default_img_files(default_folder)
 
     combiner = ImageCombiner(config_file)
     combiner.combine_images()
